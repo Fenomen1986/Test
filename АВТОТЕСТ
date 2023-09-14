@@ -1,0 +1,32 @@
+# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
+
+def test_webpage(url):
+    # Инициализация драйвера
+    driver = webdriver.Chrome()
+
+    # Открытие веб-страницы
+    driver.get(url)
+
+    # Проверка заголовка страницы
+    assert "Python" in driver.title
+
+    # Поиск элемента по имени
+    elem = driver.find_element_by_name("q")
+
+    # Ввод текста в поле поиска и отправка запроса
+    elem.clear()
+    elem.send_keys("pycon")
+    elem.send_keys(Keys.RETURN)
+
+    # Проверка результатов поиска
+    assert "No results found." not in driver.page_source
+
+    # Закрытие драйвера
+    driver.close()
+
+
+# Тестирование веб-страницы
+test_webpage("http://www.formula55.tj")
